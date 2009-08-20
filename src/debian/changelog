@@ -1,3 +1,23 @@
+whois (4.7.36) unstable; urgency=medium
+
+  * Fixed the whois server for 182.0.0.0/7 added in 4.7.35.
+  * Fixed the whois servers for some ERX legacy allocations.
+
+ -- Marco d'Itri <md@linux.it>  Wed, 12 Aug 2009 22:01:25 +0200
+
+whois (4.7.35) unstable; urgency=medium
+
+  * Added new IPv4 allocations.
+  * Updated the .ae, .jobs, .ms, .ph and .tv TLD servers. (Closes: #539567)
+  * Added the .ls, .mg, .mk, .tz and .uy TLD servers.
+  * Removed the .td TLD server.
+  * mkpasswd: generate random-length hashes when supported.
+  * mkpasswd: use ngettext to support translation of plural forms.
+    (Patch courtesy of Petr Pisar.)
+  * Updated some translations.
+
+ -- Marco d'Itri <md@linux.it>  Wed, 12 Aug 2009 15:31:20 +0200
+
 whois (4.7.34) unstable; urgency=medium
 
   * Added new IPv4 allocations.
