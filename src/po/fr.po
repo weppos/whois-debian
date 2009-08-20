@@ -1,20 +1,23 @@
 #
-# Traduction de whois.pot
+# Translation of whois to French
+# Copyright not yet (C) 2003-2009 Debian French l10n team <debian-l10n-french@lists.debian.org>
+# This file is distributed under the same license as the whois package.
 # Copyright © 2003 William Steve Applegate <wsapplegate@est.un.goret.info>
+# -2003: William Steve Applegate <wsapplegate@est.un.goret.info>
 # -2008: Mohammed Adnène Trojette <adn+deb@diwi.org>
 msgid ""
 msgstr ""
 "Project-Id-Version: whois 4.6.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-12-09 02:03+0100\n"
-"PO-Revision-Date: 2008-03-25 20:16+0100\n"
+"POT-Creation-Date: 2009-04-12 06:00+0200\n"
+"PO-Revision-Date: 2009-04-30 21:51+0200\n"
 "Last-Translator: Simon Paillard <simon.paillard@resel.enst-bretagne.fr>\n"
 "Language-Team: French <debian-l10n-french@lists.debian.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../whois.c:117
+#: ../whois.c:120
 #, c-format
 msgid ""
 "Version %s.\n"
@@ -25,32 +28,32 @@ msgstr ""
 "\n"
 "Veuillez signaler les bogues à %s.\n"
 
-#: ../whois.c:164 ../whois.c:224 ../whois.c:230 ../whois.c:237 ../whois.c:243
-#: ../whois.c:270
+#: ../whois.c:167 ../whois.c:227 ../whois.c:233 ../whois.c:240 ../whois.c:246
+#: ../whois.c:277
 #, c-format
 msgid "Using server %s.\n"
 msgstr "Le serveur %s est sélectionné.\n"
 
-#: ../whois.c:206
+#: ../whois.c:209
 msgid "This TLD has no whois server, but you can access the whois database at"
 msgstr ""
 "Ce TLD n'a pas de serveur whois, mais vous pouvez accéder à la base de "
 "données à"
 
-#: ../whois.c:214
+#: ../whois.c:217
 msgid "This TLD has no whois server."
 msgstr "Ce TLD n'a pas de serveur whois."
 
-#: ../whois.c:217
+#: ../whois.c:220
 msgid "No whois server is known for this kind of object."
 msgstr "Aucun serveur whois n'est connu pour ce type d'objet."
 
-#: ../whois.c:220
+#: ../whois.c:223
 msgid "Unknown AS number or IP network. Please upgrade this program."
 msgstr "Numéro d'AS ou réseau IP inconnu. Veuillez mettre à jour ce programme."
 
 #. XXX should fail if p = 0.0.0.0
-#: ../whois.c:250
+#: ../whois.c:253
 #, c-format
 msgid ""
 "\n"
@@ -61,7 +64,7 @@ msgstr ""
 "Requête faite pour l'extrémité IPv4 %s d'une adresse IPv6 6to4.\n"
 "\n"
 
-#: ../whois.c:257
+#: ../whois.c:260
 #, c-format
 msgid ""
 "\n"
@@ -69,10 +72,10 @@ msgid ""
 "\n"
 msgstr ""
 "\n"
-"Requête faite pour l'extrémité IPv4 %s d'une adresse IPv6 6to4.\n"
+"Requête faite pour l'extrémité IPv4 %s d'une adresse IPv6 Teredo.\n"
 "\n"
 
-#: ../whois.c:271
+#: ../whois.c:278
 #, c-format
 msgid ""
 "Query string: \"%s\"\n"
@@ -81,7 +84,7 @@ msgstr ""
 "Requête : \"%s\"\n"
 "\n"
 
-#: ../whois.c:281
+#: ../whois.c:288
 #, c-format
 msgid ""
 "\n"
@@ -94,17 +97,17 @@ msgstr ""
 "Renvoi trouvé vers %s.\n"
 "\n"
 
-#: ../whois.c:324 ../whois.c:327
+#: ../whois.c:331 ../whois.c:334
 #, c-format
 msgid "Cannot parse this line: %s"
 msgstr "Impossible d'interpréter la ligne : %s"
 
-#: ../whois.c:482
+#: ../whois.c:489
 msgid "Warning: RIPE flags used with a traditional server."
 msgstr ""
 "Avertissement : des options RIPE ont été utilisées avec un serveur classique."
 
-#: ../whois.c:620 ../whois.c:755
+#: ../whois.c:627 ../whois.c:762
 msgid ""
 "Catastrophic error: disclaimer text has been changed.\n"
 "Please upgrade this program.\n"
@@ -112,26 +115,26 @@ msgstr ""
 "Erreur catastrophique : le texte de déni de responsabilité a changé.\n"
 "Veuillez mettre à jour ce programme.\n"
 
-#: ../whois.c:796
+#: ../whois.c:814
 #, c-format
 msgid "Host %s not found."
 msgstr "L'hôte %s est introuvable."
 
-#: ../whois.c:806
+#: ../whois.c:824
 #, c-format
 msgid "%s/tcp: unknown service"
-msgstr "%s/tcp: service inconnu"
+msgstr "%s/tcp : service inconnu"
 
-#: ../whois.c:827
+#: ../whois.c:899
 msgid "Timeout."
 msgstr "Temps limite dépassé."
 
-#: ../whois.c:833
+#: ../whois.c:905
 #, c-format
 msgid "Interrupted by signal %d..."
 msgstr "Interruption par le signal %d..."
 
-#: ../whois.c:1003
+#: ../whois.c:1109
 #, c-format
 msgid ""
 "Usage: whois [OPTION]... OBJECT...\n"
@@ -168,92 +171,97 @@ msgid ""
 msgstr ""
 "Usage: whois [OPTION]... OBJET...\n"
 "\n"
-"-l                     réduire d'un niveau la spécificité de la recherche "
-"[RPSL seulement]\n"
+"-l                     réduire d'un niveau la spécificité de la recherche\n"
+"                       [RPSL seulement]\n"
 "-L                     trouver toutes les occurrences moins spécifiques\n"
-"-m                     trouver les occurrences de premier niveau plus "
-"spécifiques\n"
+"-m                     trouver les occurrences de premier niveau plus\n"
+"                       spécifiques\n"
 "-M                     trouver toutes les occurrences plus spécifiques\n"
-"-c                     trouver l'occurrence la plus spécifique contenant un "
-"attribut mnt-irt\n"
+"-c                     trouver l'occurrence la plus spécifique contenant un\n"
+"                       attribut mnt-irt\n"
 "-x                     occurrences exactes [RPSL seulement]\n"
-"-d                     renvoyer aussi les objets de délégation DNS inverse "
-"[RPSL seulement]\n"
-"-i ATTR[,ATTR]...      effectuer une recherche inverse pour les ATTRibuts "
-"spécifiés\n"
+"-d                     renvoyer aussi les objets de délégation DNS inverse\n"
+"                       [RPSL seulement]\n"
+"-i ATTR[,ATTR]...      effectuer une recherche inverse pour les ATTRibuts\n"
+"                       spécifiés\n"
 "-T TYPE[,TYPE]...      chercher seulement les objets de ce TYPE\n"
-"-K                     seules les clés primaires sont renvoyées [RPSL "
-"seulement]\n"
-"-r                     désactiver la recherche récursive des informations de "
-"contact\n"
-"-R                     forcer l'affichage de la copie locale de l'objet de "
-"domaine,\n"
-"                       même s'il contient un renvoi\n"
+"-K                     seules les clés primaires sont renvoyées [RPSL\n"
+"                       seulement]\n"
+"-r                     désactiver la recherche récursive des informations de\n"
+"                       contact\n"
+"-R                     forcer l'affichage de la copie locale de l'objet de\n"
+"                       domaine, même s'il contient un renvoi\n"
 "-a                     rechercher dans toutes les bases de données\n"
 "-s SOURCE[,SOURCE]...  rechercher dans la base de la SOURCE\n"
-"-g SOURCE:PREM-DERN    trouver les mises à jour de la SOURCE ayant des "
-"numéros de série compris entre PREM et DERN\n"
-"-t TYPE                demander la syntaxe pour les objets de ce TYPE ('all' "
-"donne une liste)\n"
-"-v TYPE                demander la syntaxe détaillée pour les objets de ce "
-"TYPE\n"
-"-q [version|sources|types]  demander les informations spécifiées au serveur "
-"[RPSL seulement]\n"
-"-F                     sortie rapide au format brut (l'option -r est "
-"implicite)\n"
-"-h HOTE                se connecter au serveur HOTE\n"
+"-g SOURCE:PREM-DERN    trouver les mises à jour de la SOURCE ayant des\n"
+"                       numéros de série compris entre PREM et DERN\n"
+"-t TYPE                demander la syntaxe pour les objets de ce TYPE (« all »\n"
+"                       donne une liste)\n"
+"-v TYPE                demander la syntaxe détaillée pour les objets de ce\n"
+"                       TYPE\n"
+"-q [version|sources|types]  demander les informations spécifiées au serveur\n"
+"                       [RPSL seulement]\n"
+"-F                     sortie rapide au format brut (l'option -r est\n"
+"                       implicite)\n"
+"-h HÔTE                se connecter au serveur HÔTE\n"
 "-p PORT                se connecter à ce PORT\n"
 "-H                     cacher les textes légaux de déni de responsabilité\n"
 "      --verbose        détailler les actions entreprises\n"
 "      --help           afficher cette page d'aide et sortir\n"
 "      --version        afficher les informations de version et sortir\n"
 
-#: ../mkpasswd.c:76
+#: ../mkpasswd.c:80
 msgid "standard 56 bit DES-based crypt(3)"
 msgstr "fonction crypt(3) standard, chiffrement DES à 56 bits"
 
-#: ../mkpasswd.c:148
+#: ../mkpasswd.c:159
 #, c-format
 msgid "Invalid method '%s'.\n"
 msgstr "La méthode '%s' est invalide.\n"
 
-#: ../mkpasswd.c:157 ../mkpasswd.c:167
+#: ../mkpasswd.c:168 ../mkpasswd.c:178
 #, c-format
 msgid "Invalid number '%s'.\n"
-msgstr "Le nombre '%s' est invalide.\n"
+msgstr "Le nombre « %s » est invalide.\n"
 
-#: ../mkpasswd.c:185
+#: ../mkpasswd.c:196
 #, c-format
 msgid "Try '%s --help' for more information.\n"
-msgstr "Veuillez taper '%s --help' pour plus d'informations.\n"
+msgstr "Veuillez taper « %s --help » pour plus d'informations.\n"
 
 # : ../mkpasswd.c:152
-#: ../mkpasswd.c:225
+#: ../mkpasswd.c:237
 #, c-format
 msgid "Wrong salt length: %d byte(s) when %d expected.\n"
-msgstr "Mauvaise taille d'aléa: %d octet(s) au lieu de %d.\n"
+msgstr "Mauvaise taille d'aléa : %d octet(s) au lieu de %d.\n"
 
-#: ../mkpasswd.c:231
+# : ../mkpasswd.c:152
+#: ../mkpasswd.c:241
+#, c-format
+msgid "Wrong salt length: %d byte(s) when %d <= n <= %d expected.\n"
+msgstr "Mauvaise taille d'aléa : %d octet(s), non comprise entre %d et %d.\n"
+
+#: ../mkpasswd.c:247
 #, c-format
 msgid "Illegal salt character '%c'.\n"
-msgstr "Le caractère '%c' est invalide dans l'aléa.\n"
+msgstr "Le caractère « %c » est invalide dans l'aléa.\n"
 
-#: ../mkpasswd.c:269 ../mkpasswd.c:296
+#: ../mkpasswd.c:286 ../mkpasswd.c:313
 #, c-format
 msgid "Password: "
 msgstr "Mot de passe : "
 
-#: ../mkpasswd.c:290
+#: ../mkpasswd.c:307
 #, c-format
 msgid "Illegal password character '0x%hhx'.\n"
-msgstr "Le caractère '0x%hhx' est invalide dans le mot de passe.\n"
+msgstr "Le caractère « 0x%hhx » est invalide dans le mot de passe.\n"
 
-#: ../mkpasswd.c:312
+#: ../mkpasswd.c:329
 #, c-format
 msgid "Method not supported by crypt(3).\n"
 msgstr "Méthode non prise en charge par crypt(3).\n"
 
-#: ../mkpasswd.c:363
+#: ../mkpasswd.c:411
 #, c-format
 msgid ""
 "Usage: mkpasswd [OPTIONS]... [PASSWORD [SALT]]\n"
@@ -264,7 +272,7 @@ msgstr ""
 "Chiffre le MOT DE PASSE à l'aide de la fonction crypt(3).\n"
 "\n"
 
-#: ../mkpasswd.c:366
+#: ../mkpasswd.c:414
 #, c-format
 msgid ""
 "      -m, --method=TYPE     select method TYPE\n"
@@ -285,8 +293,8 @@ msgstr ""
 "      -m, --method=TYPE     sélectionner ce TYPE de méthode\n"
 "      -S, --salt=ALÉA       utiliser cette ALÉA\n"
 "      -R, --rounds=NOMBRE   utiliser le NOMBRE de passages indiqué\n"
-"      -P, --password-fd=NUM lire le mot de passe depuis le descripteur de "
-"fichier NUM\n"
+"      -P, --password-fd=NUM lire le mot de passe depuis le descripteur de\n "
+"                            fichier NUM\n"
 "                            au lieu de /dev/tty\n"
 "      -s, --stdin           équivalent à --password-fd=0\n"
 "      -h, --help            afficher cette page d'aide et sortir\n"
@@ -294,11 +302,11 @@ msgstr ""
 "\n"
 "Si le MOT DE PASSE est manquant, il est demandé interactivement.\n"
 "Si aucune ALÉA n'est spécifiée, un aléa aléatoire est générée.\n"
-"Si le TYPE est 'help', les méthodes disponibles sont affichés.\n"
+"Si le TYPE est « help », les méthodes disponibles sont affichés.\n"
 "\n"
 "Veuillez signaler les bogues à %s.\n"
 
-#: ../mkpasswd.c:394
+#: ../mkpasswd.c:442
 #, c-format
 msgid "Available methods:\n"
 msgstr "Méthodes disponibles :\n"

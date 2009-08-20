@@ -1,3 +1,41 @@
+whois (4.7.34) unstable; urgency=medium
+
+  * Added new IPv4 allocations.
+  * Fixed the disclaimer suppression data for .mobi. (Closes: #526143)
+  * Updated the French translation. (Closes: #527605)
+  * Updated the .bd TLD server.
+
+ -- Marco d'Itri <md@linux.it>  Wed, 17 Jun 2009 11:59:51 +0200
+
+whois (4.7.33) unstable; urgency=medium
+
+  * mkpasswd: use /dev/urandom to generate the salt. If it is not present,
+    initialize srand(3) with gettimeofday(2) instead of time(2) to have a
+    larger randomness space. (Closes: #523387)
+  * mkpasswd: added preliminary support for variable length salts, patch
+    courtesy of Nicolas François.
+  * Updated the .co.za SLD server. (Closes: #521579)
+
+ -- Marco d'Itri <md@linux.it>  Sun, 12 Apr 2009 05:55:21 +0200
+
+whois (4.7.32) unstable; urgency=medium
+
+  * Added new ASN allocations.
+  * Updated the .tel, .gg and .je TLD servers.
+
+ -- Marco d'Itri <md@linux.it>  Mon, 16 Mar 2009 18:08:04 +0100
+
+whois (4.7.31) unstable; urgency=low
+
+  * Implemented a 10 seconds timeout on connect(2) to allow querying
+    servers with broken IPv6 connectivity. (Closes: #408096)
+  * Added support for automatically determining the server for in-addr.arpa
+    domains.
+  * Added new IPv4 allocations.
+  * Fixed a typo in de.po. (Closes: #514619)
+
+ -- Marco d'Itri <md@linux.it>  Sun, 01 Mar 2009 19:39:42 +0100
+
 whois (4.7.30) unstable; urgency=high
 
   * Updated the .gi, .lc and .mn TLD servers.
