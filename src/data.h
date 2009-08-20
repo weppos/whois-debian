@@ -14,7 +14,6 @@ const char *ripe_servers[] = {
     "whois.6bone.net",		/* 3.0.0b1 */
     "whois.connect.com.au",	/* 3.0.0b1 */
     "whois.nic.fr",
-    "whois.nic.it",
     "whois.telstra.net",
     "whois.restena.lu",
     "rr.level3.net",		/* 3.0.0a13 */
@@ -31,7 +30,6 @@ const char *hide_strings[] = {
     "NOTICE AND TERMS OF USE: You", "",				/* NetSol */
     "TERMS OF USE: You are not", "",				/* crsnic */
     "NOTICE: Access to .ORG WHOIS", "",
-    "NOTICE: Access to .INFO WHOIS", "",
     "NOTICE: Access to the .aero", "",
     "This Registry database contains ONLY .EDU", "type: help",	/* edu */
     "% .eu Whois Server", "% of the database",
@@ -58,9 +56,14 @@ const char *hide_strings[] = {
     "; This data is provided by domaindiscount24.com", "",
     "%% BookMyName Whois", "%% this policy",
     "The .coop registry WHOIS", "VERIFICATION, NOR DO",
-    "Tralliance, Inc., the Registry", "",			/* travel */
+    "Tralliance, Inc., the Registry", "",			/* .travel */
     "NOTICE: Access to the domains information", "",		/* CORE */
     "%% puntCAT Whois Server", "%% any time.",
+    "Access to INFO WHOIS information is provided", "",		/* Afilias */
+    "Access to CCTLD WHOIS information is provided", "",	/* Afilias */
+    "DotAsia WHOIS LEGAL STATEMENT", "integrity of the database.",
+    "mTLD WHOIS LEGAL STATEMENT", "integrity of the database."	/* .mobi */
+    "Access to RegistryPro's Whois", "All rights",		/* .pro */
     NULL, NULL
 };
 
@@ -69,6 +72,7 @@ const char *nic_handles[] = {
     "netblk-",	"whois.arin.net",
     "poem-",	"whois.ripe.net",
     "form-",	"whois.ripe.net",
+    "pgpkey-",	"whois.ripe.net",
 #if 0
     // commented until somebody will explain the query format for these
     "coco-",	"whois.corenic.net",
@@ -115,6 +119,17 @@ struct as_del {
 
 const struct as_del as_assign[] = {
 #include "as_del.h"
+    { 0, 0, NULL }
+};
+
+struct as32_del {
+    const unsigned long first;
+    const unsigned long last;
+    const char         *serv;
+};
+
+const struct as32_del as32_assign[] = {
+#include "as32_del.h"
     { 0, 0, NULL }
 };
 

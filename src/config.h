@@ -1,6 +1,5 @@
 /* Program version */
-/* not for the inetutils version */
-#define VERSION "4.7.20"
+#define VERSION "4.7.30"
 
 /* Configurable features */
 
@@ -15,6 +14,7 @@
 #define CONFIG_FILE "/etc/whois.conf"
 */
 
+
 /* autoconf in cpp macros */
 #ifdef linux
 # define ENABLE_NLS
@@ -25,7 +25,9 @@
 # define HAVE_GETOPT_LONG
 # define HAVE_GETADDRINFO
 # define ENABLE_NLS
-# define LOCALEDIR "/usr/local/share/locale"
+# ifndef LOCALEDIR
+#  define LOCALEDIR "/usr/local/share/locale"
+# endif
 #endif
 
 /* needs unistd.h */
@@ -34,16 +36,18 @@
 # define HAVE_GETADDRINFO
 #endif
 
+#if defined __APPLE__ && defined __MACH__
+# define HAVE_GETADDRINFO
+#endif
+
 #if defined __GLIBC__
 # define HAVE_GETOPT_LONG
 # if __GLIBC__ >= 2 && __GLIBC_MINOR__ >= 1
 #  define HAVE_GETADDRINFO
 # endif
-#endif
-
-/* Linux, Solaris 5, FreeBSD 5.x. What else? */
-#if defined _POSIX_VERSION && _POSIX_VERSION >= 200112L
-# define HAVE_WORDEXP
+# if __GLIBC__ >= 2 && __GLIBC_MINOR__ >= 7
+#  define HAVE_SHA_CRYPT
+# endif
 #endif
 
 #if defined _POSIX2_VERSION
@@ -51,7 +55,6 @@
 #endif
 
 
-/* system features */
 #ifdef ENABLE_NLS
 # ifndef NLS_CAT_NAME
 #  define NLS_CAT_NAME   "whois"
@@ -59,27 +62,5 @@
 # ifndef LOCALEDIR
 #  define LOCALEDIR     "/usr/share/locale"
 # endif
-#endif
-
-#ifdef HAVE_GETOPT_LONG
-# define GETOPT_LONGISH(c, v, o, l, i) getopt_long(c, v, o, l, i)
-#else
-# define GETOPT_LONGISH(c, v, o, l, i) getopt(c, v, o)
-#endif
-
-
-/* NLS stuff */
-#ifdef ENABLE_NLS
-# include <libintl.h>
-# include <locale.h>
-# define _(a) (gettext (a))
-# ifdef gettext_noop
-#  define N_(a) gettext_noop (a)
-# else
-#  define N_(a) (a)
-# endif
-#else
-# define _(a) (a)
-# define N_(a) a
 #endif
 

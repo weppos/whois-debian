@@ -22,17 +22,17 @@
 62.0.0.0/8	ripe
 77.0.0.0/8	ripe
 78.0.0.0/7	ripe
-80.0.0.0/5	ripe			# => 87.255.255.255
-88.0.0.0/6	ripe			# => 91.255.255.254
+80.0.0.0/4	ripe			# => 95.255.255.255
+96.0.0.0/6	arin			# => 99.255.255.255
+110.0.0.0/7	apnic
+112.0.0.0/5	apnic
 121.128.0.0/10	whois.nic.or.kr
-121.0.0.0/8	apnic
-122.0.0.0/7	apnic
 125.128.0.0/11	whois.nic.or.kr
+120.0.0.0/6	apnic
 124.0.0.0/7	apnic
 126.0.0.0/8	apnic
-96.0.0.0/6	arin
 96.0.0.0/3	UNALLOCATED		# => 127.215.255.255
-0.0.0.0/1	arin	# all other A classes are managed by ARIN
+0.0.0.0/1	arin	# all other A class addresses are managed by ARIN
 133.0.0.0/8	whois.nic.ad.jp
 139.20.0.0/14	ripe
 139.24.0.0/14	ripe
@@ -83,7 +83,8 @@
 169.208.0.0/12	apnic
 171.16.0.0/12	ripe
 171.32.0.0/15	ripe
-# 173 -> 187 reserved
+# 175 -> 185 reserved
+186.0.0.0/7	lacnic
 188.0.0.0/8	ripe # transferred from ARIN to to RIPE
 189.0.0.0/8	lacnic
 190.0.0.0/8	lacnic
@@ -105,8 +106,8 @@
 192.0.0.0/8	arin	# the swamp
 193.0.0.0/8	ripe
 194.0.0.0/7	ripe
-196.0.0.0/8	afrinic
-196.0.0.0/6	arin
+196.0.0.0/7	afrinic
+198.0.0.0/7	arin
 
 200.17.0.0/16	whois.nic.br
 200.18.0.0/15	whois.nic.br
@@ -138,7 +139,7 @@
 203.180.0.0/14	whois.nic.ad.jp
 203.224.0.0/11	whois.nic.or.kr # => 203.255.255.255
 202.0.0.0/7	apnic
-204.0.0.0/14	verio		# rwhois too
+204.0.0.0/14	rwhois.gin.ntt.net	# rwhois too
 204.0.0.0/6	arin
 208.0.0.0/7	arin
 209.94.192.0/19	lacnic

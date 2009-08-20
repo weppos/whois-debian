@@ -1,75 +1,103 @@
-prefix ?= /usr/local
+prefix = /usr
 
-OPTS := -O2
+CFLAGS = -g -O2
+
+PERL = perl
+INSTALL = install
 
 # Solaris
 #whois_LDADD += -lnsl -lsocket
 
 # FreeBSD
-#LDFLAGS=-L/usr/local/lib -lgnugetopt -lintl
-#CFLAGS=-I/usr/local/include
+#LIBS += -L/usr/local/lib -lintl
+#INCLUDES += -I/usr/local/include
 
 # OS/2 EMX
-#LDFLAGS=-lsocket -Zexe -Dstrncasecmp=strnicmp
+#whois_LDADD += -lsocket
+#LDFLAGS += -Zexe -Dstrncasecmp=strnicmp
+
+ifdef CONFIG_FILE
+DEFS += -DCONFIG_FILE=\"$(CONFIG_FILE)\"
+endif
+
+ifdef LOCALEDIR
+DEFS += -DLOCALEDIR=\"$(BASEDIR)$(prefix)/share/locale\"
+endif
 
 ifdef HAVE_LIBIDN
 whois_LDADD += -lidn
-whois_CFLAGS += -DHAVE_LIBIDN
+DEFS += -DHAVE_LIBIDN
 endif
 
 ifdef HAVE_XCRYPT
 mkpasswd_LDADD += -lxcrypt
-mkpasswd_CFLAGS += -DHAVE_XCRYPT
+DEFS += -DHAVE_XCRYPT
 else
 mkpasswd_LDADD += -lcrypt
 endif
 
-PERL := perl
+all: Makefile.depend whois mkpasswd #pos
 
-all: whois #pos
+whois_OBJECTS := whois.o utils.o
+mkpasswd_OBJECTS := mkpasswd.o utils.o
 
-whois: whois.c whois.h config.h data.h as_del.h ip_del.h ip6_del.h tld_serv.h
-	$(CC) $(CFLAGS) $(whois_CFLAGS) $(OPTS) whois.c -o whois \
-		$(LDFLAGS) $(whois_LDADD)
+##############################################################################
+%.o: %.c
+	$(CC) $(DEFS) $(INCLUDES) $(CFLAGS) -c $<
 
-mkpasswd: mkpasswd.c
-	$(CC) $(CFLAGS) $(mkpasswd_CFLAGS) $(OPTS) mkpasswd.c -o mkpasswd \
-		$(LDFLAGS) $(mkpasswd_LDADD)
+whois: $(whois_OBJECTS)
+	$(CC) $(LDFLAGS) -o $@ $^ $(whois_LDADD) $(LIBS)
 
+mkpasswd: $(mkpasswd_OBJECTS)
+	$(CC) $(LDFLAGS) -o $@ $^ $(mkpasswd_LDADD) $(LIBS)
+
+##############################################################################
 as_del.h: as_del_list make_as_del.pl
-	$(PERL) -w make_as_del.pl < as_del_list > as_del.h
+	$(PERL) -w make_as_del.pl < as_del_list > $@
+
+as32_del.h: as32_del_list make_as32_del.pl
+	$(PERL) -w make_as32_del.pl < as32_del_list > $@
 
 ip_del.h: ip_del_list make_ip_del.pl
-	$(PERL) -w make_ip_del.pl < ip_del_list > ip_del.h
+	$(PERL) -w make_ip_del.pl < ip_del_list > $@
 
 ip6_del.h: ip6_del_list make_ip6_del.pl
-	$(PERL) -w make_ip6_del.pl < ip6_del_list > ip6_del.h
+	$(PERL) -w make_ip6_del.pl < ip6_del_list > $@
 
 tld_serv.h: tld_serv_list make_tld_serv.pl
-	$(PERL) -w make_tld_serv.pl < tld_serv_list > tld_serv.h
+	$(PERL) -w make_tld_serv.pl < tld_serv_list > $@
 
-install: whois
-	install -m 0755 whois $(BASEDIR)$(prefix)/bin/
-	install -m 0644 whois.1 $(BASEDIR)$(prefix)/share/man/man1/
-	cd po && $(MAKE) $@
+##############################################################################
+install: install-whois install-mkpasswd #install-pos
+
+install-whois: whois
+	$(INSTALL) -d $(BASEDIR)$(prefix)/bin/
+	$(INSTALL) -d $(BASEDIR)$(prefix)/share/man/man1/
+	$(INSTALL) -m 0755 whois $(BASEDIR)$(prefix)/bin/
+	$(INSTALL) -m 0644 whois.1 $(BASEDIR)$(prefix)/share/man/man1/
 
 install-mkpasswd: mkpasswd
-	install -m 0755 mkpasswd $(BASEDIR)$(prefix)/bin/
-	install -m 0644 mkpasswd.1 $(BASEDIR)$(prefix)/share/man/man1/
+	$(INSTALL) -d $(BASEDIR)$(prefix)/bin/
+	$(INSTALL) -d $(BASEDIR)$(prefix)/share/man/man1/
+	$(INSTALL) -m 0755 mkpasswd $(BASEDIR)$(prefix)/bin/
+	$(INSTALL) -m 0644 mkpasswd.1 $(BASEDIR)$(prefix)/share/man/man1/
+
+install-pos:
+	cd po && $(MAKE) install
 
 distclean: clean
 	rm -f po/whois.pot
 
 clean:
-	rm -f as_del.h ip_del.h ip6_del.h tld_serv.h whois mkpasswd
+	rm -f Makefile.depend as_del.h ip_del.h ip6_del.h tld_serv.h \
+		*.o whois mkpasswd
 	rm -f po/*.mo
-
-test:
-	open -- sh -c "while nc -l -p 43 127.0.0.1; do echo END; done"
-
-gnu:
-	tar czvvf gnu-whois.tgz Makefile* README *list *.h whois.*
 
 pos:
 	cd po && $(MAKE)
 
+depend: Makefile.depend
+Makefile.depend:
+	$(CC) $(DEFS) $(INCLUDES) $(CFLAGS) -MM -MG *.c > $@
+
+-include Makefile.depend
