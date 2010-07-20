@@ -1,5 +1,5 @@
 /*
- * Copyright 1999-2009 by Marco d'Itri <md@linux.it>.
+ * Copyright 1999-2010 by Marco d'Itri <md@linux.it>.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -34,6 +34,9 @@
 #ifdef HAVE_LIBIDN
 #include <idna.h>
 #endif
+#ifdef HAVE_INET_PTON
+#include <arpa/inet.h>
+#endif
 
 /* Application-specific */
 #include "data.h"
@@ -49,6 +52,12 @@
 /* hack */
 #define malloc(s) NOFAIL(malloc(s))
 #define realloc(p, s) NOFAIL(realloc(p, s))
+#ifdef strdup
+#undef strdup
+#define strdup(s) NOFAIL(__strdup(s))
+#else
+#define strdup(s) NOFAIL(strdup(s))
+#endif
 
 /* Global variables */
 int sockfd, verb = 0;
@@ -430,7 +439,12 @@ const char *guess_server(const char *s)
 	return whereas32(as32);
 
     /* smells like an IP? */
+#ifdef HAVE_INET_PTON
+    if (inet_pton(AF_INET, s, &ip) > 0) {
+	ip = ntohl(ip);
+#else
     if ((ip = myinet_aton(s))) {
+#endif
 	for (i = 0; ip_assign[i].serv; i++)
 	    if ((ip & ip_assign[i].mask) == ip_assign[i].net)
 		return ip_assign[i].serv;
@@ -545,6 +559,9 @@ char *queryformat(const char *server, const char *flags, const char *query)
 	strcat(buf, "AS ");
 	strcat(buf, query + 2);
     }
+    else if (!isripe && streq(server, "whois.arin.net") &&
+	    strncaseeq(query, "AS", 2) && isasciidigit(query[2]))
+	strcat(buf, query + 2);			/* strip the "AS" prefix */
     else if (!isripe && streq(server, "whois.arin.net") &&
 	    (p = strrchr(query, '/')))
 	strncat(buf, query, p - query);		/* strip the mask length */
@@ -1076,6 +1093,18 @@ void split_server_port(const char *const input,
 char *convert_6to4(const char *s)
 {
     char *new;
+
+#ifdef HAVE_INET_PTON
+    struct in6_addr ipaddr;
+    unsigned char *ip;
+
+    if (inet_pton(AF_INET6, s, &ipaddr) <= 0)
+	return strdup("0.0.0.0");
+
+    ip = (unsigned char *)&ipaddr;
+    new = malloc(sizeof("255.255.255.255"));
+    sprintf(new, "%d.%d.%d.%d", *(ip + 2), *(ip + 3), *(ip + 4), *(ip + 5));
+#else
     unsigned int a, b;
 
     if (sscanf(s, "2002:%x:%x:", &a, &b) != 2)
@@ -1083,12 +1112,27 @@ char *convert_6to4(const char *s)
 
     new = malloc(sizeof("255.255.255.255"));
     sprintf(new, "%d.%d.%d.%d", a >> 8, a & 0xff, b >> 8, b & 0xff);
+#endif
+
     return new;
 }
 
 char *convert_teredo(const char *s)
 {
     char *new;
+
+#ifdef HAVE_INET_PTON
+    struct in6_addr ipaddr;
+    unsigned char *ip;
+
+    if (inet_pton(AF_INET6, s, &ipaddr) <= 0)
+	return strdup("0.0.0.0");
+
+    ip = (unsigned char *)&ipaddr;
+    new = malloc(sizeof("255.255.255.255"));
+    sprintf(new, "%d.%d.%d.%d", *(ip + 12) ^ 0xff, *(ip + 13) ^ 0xff,
+	    *(ip + 14) ^ 0xff, *(ip + 15) ^ 0xff);
+#else
     unsigned int a, b;
 
     if (sscanf(s, "2001:%*[^:]:%*[^:]:%*[^:]:%*[^:]:%*[^:]:%x:%x", &a, &b) != 2)
@@ -1098,6 +1142,8 @@ char *convert_teredo(const char *s)
     b ^= 0xffff;
     new = malloc(sizeof("255.255.255.255"));
     sprintf(new, "%d.%d.%d.%d", a >> 8, a & 0xff, b >> 8, b & 0xff);
+#endif
+
     return new;
 }
 
@@ -1133,6 +1179,7 @@ char *convert_inaddr(const char *s)
     return new;
 }
 
+#ifndef HAVE_INET_PTON
 unsigned long myinet_aton(const char *s)
 {
     unsigned long a, b, c, d;
@@ -1148,6 +1195,7 @@ unsigned long myinet_aton(const char *s)
 	return 0;
     return (a << 24) + (b << 16) + (c << 8) + d;
 }
+#endif
 
 unsigned long asn32_to_long(const char *s)
 {

@@ -1,5 +1,5 @@
 /* Program version */
-#define VERSION "5.0.1"
+#define VERSION "5.0.6"
 
 /* Configurable features */
 
@@ -37,6 +37,7 @@
 #endif
 
 #if defined __APPLE__ && defined __MACH__
+# define HAVE_GETOPT_LONG
 # define HAVE_GETADDRINFO
 #endif
 
@@ -57,6 +58,10 @@
 
 /* FIXME: which systems lack this? */
 #define HAVE_GETTIMEOFDAY
+/* FIXME: disabled because it does not parse addresses with a netmask length.
+ * The code using it needs to be either fixed or removed.
+#define HAVE_INET_PTON
+*/
 
 /*
  * Please send patches to correctly ignore old releases which lack a RNG
