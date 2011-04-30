@@ -1,4 +1,7 @@
 = whois
 
-This repository is a versioned archive of all debian whois versions.
+This repository is an unofficial, versioned archive of all Debian whois versions.
 http://ftp.debian.org/debian/pool/main/w/whois/
+
+I'm keeping track of the released packages to sync the changes with my Ruby Whois client.
+https://github.com/weppos/whois
