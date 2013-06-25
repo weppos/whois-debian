@@ -1,11 +1,11 @@
 Summary: Enhanced WHOIS client
 Name: whois
-Version: 5.0.22
+Version: 5.0.23
 Release: 1
 License: GPL
 Vendor: Marco d'Itri <md@linux.it>
 Group: Applications/Internet
-Source: http://ftp.debian.org/debian/pool/main/w/whois/whois_%{version}.tar.gz
+Source: http://ftp.debian.org/debian/pool/main/w/whois/whois_%{version}.tar.xz
 BuildRoot: /var/tmp/%{name}-root
 Prefix: /usr
 
