@@ -72,9 +72,9 @@ const char *client_tag = IDSTRING;
 
 #ifdef HAVE_GETOPT_LONG
 static const struct option longopts[] = {
-    {"help",	no_argument,		NULL, 0  },
     {"version",	no_argument,		NULL, 1  },
     {"verbose",	no_argument,		NULL, 2  },
+    {"help",	no_argument,		NULL, 3  },
     {"server",	required_argument,	NULL, 'h'},
     {"host",	required_argument,	NULL, 'h'},
     {"port",	required_argument,	NULL, 'p'},
@@ -105,7 +105,7 @@ int main(int argc, char *argv[])
     argv = merge_args(getenv("WHOIS_OPTIONS"), argv, &argc);
 
     while ((ch = GETOPT_LONGISH(argc, argv,
-		"abBcdFg:Gh:Hi:KlLmMp:q:rRs:St:T:v:V:x", longopts, 0)) > 0) {
+		"abBcdFg:Gh:Hi:KlLmMp:q:rRs:t:T:v:V:x", longopts, 0)) > 0) {
 	/* RIPE flags */
 	if (strchr(ripeflags, ch)) {
 	    if (strlen(fstring) + 3 > fstringlen) {
@@ -139,22 +139,24 @@ int main(int argc, char *argv[])
 	case 'p':
 	    port = strdup(optarg);
 	    break;
+	case 3:
+	    usage(EXIT_SUCCESS);
 	case 2:
 	    verb = 1;
 	    break;
 	case 1:
-	    fprintf(stderr, _("Version %s.\n\nReport bugs to %s.\n"),
+	    fprintf(stdout, _("Version %s.\n\nReport bugs to %s.\n"),
 		    VERSION, "<md+whois@linux.it>");
-	    exit(0);
+	    exit(EXIT_SUCCESS);
 	default:
-	    usage();
+	    usage(EXIT_FAILURE);
 	}
     }
     argc -= optind;
     argv += optind;
 
     if (argc == 0 && !nopar)	/* there is no parameter */
-	usage();
+	usage(EXIT_FAILURE);
 
     /* On some systems realloc only works on non-NULL buffers */
     /* I wish I could remember which ones they are... */
@@ -1181,37 +1183,41 @@ int isasciidigit(const char c) {
 
 /* http://www.ripe.net/ripe/docs/databaseref-manual.html */
 
-void usage(void)
+void usage(int error)
 {
-    fprintf(stderr, _(
+    fprintf((EXIT_SUCCESS == error) ? stdout : stderr, _(
 "Usage: whois [OPTION]... OBJECT...\n\n"
-"-l                     one level less specific lookup [RPSL only]\n"
-"-L                     find all Less specific matches\n"
-"-m                     find first level more specific matches\n"
-"-M                     find all More specific matches\n"
-"-c                     find the smallest match containing a mnt-irt attribute\n"
-"-x                     exact match [RPSL only]\n"
-"-d                     return DNS reverse delegation objects too [RPSL only]\n"
-"-i ATTR[,ATTR]...      do an inverse lookup for specified ATTRibutes\n"
-"-T TYPE[,TYPE]...      only look for objects of TYPE\n"
-"-K                     only primary keys are returned [RPSL only]\n"
-"-r                     turn off recursive lookups for contact information\n"
-"-R                     force to show local copy of the domain object even\n"
-"                       if it contains referral\n"
-"-a                     search all databases\n"
-"-s SOURCE[,SOURCE]...  search the database from SOURCE\n"
-"-g SOURCE:FIRST-LAST   find updates from SOURCE from serial FIRST to LAST\n"
-"-t TYPE                request template for object of TYPE\n"
-"-v TYPE                request verbose template for object of TYPE\n"
-"-q [version|sources|types]  query specified server info [RPSL only]\n"
-"-F                     fast raw output (implies -r)\n"
-"-h HOST                connect to server HOST\n"
-"-p PORT                connect to PORT\n"
+"-h HOST, --host HOST   connect to server HOST\n"
+"-p PORT, --port PORT   connect to PORT\n"
 "-H                     hide legal disclaimers\n"
 "      --verbose        explain what is being done\n"
 "      --help           display this help and exit\n"
 "      --version        output version information and exit\n"
+"\n"
+"These flags are supported by whois.ripe.net and some RIPE-like servers:\n"
+"-l                     find the one level less specific match\n"
+"-L                     find all levels less specific matches\n"
+"-m                     find all one level more specific matches\n"
+"-M                     find all levels of more specific matches\n"
+"-c                     find the smallest match containing a mnt-irt attribute\n"
+"-x                     exact match\n"
+"-b                     return brief IP address ranges with abuse contact\n"
+"-B                     turn off object filtering (show email addresses)\n"
+"-G                     turn off grouping of associated objects\n"
+"-d                     return DNS reverse delegation objects too\n"
+"-i ATTR[,ATTR]...      do an inverse look-up for specified ATTRibutes\n"
+"-T TYPE[,TYPE]...      only look for objects of TYPE\n"
+"-K                     only primary keys are returned\n"
+"-r                     turn off recursive look-ups for contact information\n"
+"-R                     force to show local copy of the domain object even\n"
+"                       if it contains referral\n"
+"-a                     also search all the mirrored databases\n"
+"-s SOURCE[,SOURCE]...  search the database mirrored from SOURCE\n"
+"-g SOURCE:FIRST-LAST   find updates from SOURCE from serial FIRST to LAST\n"
+"-t TYPE                request template for object of TYPE\n"
+"-v TYPE                request verbose template for object of TYPE\n"
+"-q [version|sources|types]  query specified server info\n"
 ));
-    exit(0);
+    exit(error);
 }
 

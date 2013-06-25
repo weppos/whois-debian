@@ -21,7 +21,7 @@ const char *query_pir(const int, const char *);
 const char *query_afilias(const int, const char *);
 int openconn(const char *, const char *);
 int connect_with_timeout(int, const struct sockaddr *, socklen_t, int);
-void usage(void);
+void usage(int error);
 void alarm_handler(int);
 void sighandler(int);
 int japanese_locale(void);
@@ -41,6 +41,6 @@ void split_server_port(const char *const input, const char **server,
 
 
 /* flags for RIPE-like servers */
-const char *ripeflags="abBcdFGKlLmMrRSx";
+const char *ripeflags="abBcdFGKlLmMrRx";
 const char *ripeflagsp="gisTtvq";
 
