@@ -1,3 +1,9 @@
+whois (5.0.22) unstable; urgency=low
+
+  * Fixed cross-compiling, this time for real. (See #695442.)
+
+ -- Marco d'Itri <md@linux.it>  Sun, 31 Mar 2013 22:17:29 +0200
+
 whois (5.0.21) unstable; urgency=low
 
   * Fixed parsing of 6to4 addresses: the last two bytes of the IPv4 address
