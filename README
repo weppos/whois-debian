@@ -5,3 +5,8 @@ http://ftp.debian.org/debian/pool/main/w/whois/
 
 I'm keeping track of the released packages to sync the changes with my Ruby Whois client.
 https://github.com/weppos/whois
+
+---
+
+This repository is now obsolete because Marco D'Itri is now hosting the package at
+https://github.com/rfc1036/whois
